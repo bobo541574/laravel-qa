@@ -27,7 +27,8 @@ class QuestionsController extends Controller
      */
     public function create()
     {
-        return view('questions.create');
+        $question = new Question();
+        return view('questions.create', compact('question'));
     }
 
     /**
@@ -38,8 +39,9 @@ class QuestionsController extends Controller
      */
     public function store(AskQuestionRequest $request)
     {
+        // dd($request);
         $request->user()->questions()->create($request->all());
-        return redirect()->route('questions.index')->with('success', "Your question has been submitted");
+        return redirect()->route('questions.index')->with('success', "Your question has been submitted.");
     }
 
     /**
@@ -48,9 +50,11 @@ class QuestionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Question $question)
     {
-        //
+        $question->increment('views');
+
+        return view('questions.show', compact('question'));
     }
 
     /**
@@ -59,9 +63,12 @@ class QuestionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Question $question)
     {
-        //
+        if(\Gate::denies('update-question', $question)) {
+            abort(403, "Access denied");
+        }
+        return view('questions.edit', compact('question'));
     }
 
     /**
@@ -71,9 +78,10 @@ class QuestionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AskQuestionRequest $request, Question $question)
     {
-        //
+        $question->update($request->all());
+        return redirect()->route('questions.index')->with('success', "Your question has been updated.");
     }
 
     /**
@@ -82,8 +90,13 @@ class QuestionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Question $question)
     {
-        //
+        if(\Gate::denies('delete-question', $question)) {
+            abort(403, "Access denied");
+        }
+        $question->delete();
+
+        return redirect()->route('questions.index')->with('success', "Your question has been deleted.");
     }
 }
