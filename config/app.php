@@ -165,7 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Parsedown\Providers\ParsedownServiceProvider::class,
         /*
          * Application Service Providers...
          */
