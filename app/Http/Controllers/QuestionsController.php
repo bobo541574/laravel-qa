@@ -43,7 +43,6 @@ class QuestionsController extends Controller
      */
     public function store(AskQuestionRequest $request)
     {
-        // dd($request);
         $request->user()->questions()->create($request->all());
         return redirect()->route('questions.index')->with('success', "Your question has been submitted.");
     }

@@ -17,20 +17,26 @@
         font-size: 2em;
     }
 
-    .vote, .answer {
+    .vote,
+    .answer {
         width: 60px;
         height: 60px;
     }
 
     .status {
-        &.unanswered {  // class="status unanswered"
+        &.unanswered {
+            // class="status unanswered"
             border: none;
-        } 
-        &.answered {  // class="status answered"
+        }
+
+        &.answered {
+            // class="status answered"
             border: 1px solid $color-green;
             color: $color-green;
-        } 
-        &.answered-accepted { // class="status answered-accepted"
+        }
+
+        &.answered-accepted {
+            // class="status answered-accepted"
             background: $color-green;
             color: $color-white;
         }
@@ -51,7 +57,8 @@ form.form-delete {
     text-align: center;
     color: $gray-700;
 
-    span, a {
+    span,
+    a {
         display: block;
     }
 
@@ -59,6 +66,7 @@ form.form-delete {
         &.votes-count {
             font-size: 25px;
         }
+
         &.favorites-count {
             font-size: 12px;
         }
@@ -67,15 +75,27 @@ form.form-delete {
     a {
         cursor: pointer;
         color: $gray-600;
+        text-decoration: none;
 
-        &.off, &.off:hover {
+        &.off,
+        &.off:hover {
             color: $gray-500;
         }
+
         &.favorite {
-            &.favorited, &.favorited:hover {
+
+            &.favorited,
+            &.favorited:hover {
                 color: $warning;
             }
+
+            span {
+                // color: $blue;
+                font-size: 13px;
+                font-weight: bolder;
+            }
         }
+
         &.vote-accepted {
             color: $green;
         }
