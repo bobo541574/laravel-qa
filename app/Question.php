@@ -45,12 +45,12 @@ class Question extends Model
 
     public function getBodyHtmlAttribute()
     {
-        return \Parsedown::instance()->text($this->body);
+        return $this->bodyHtml();
     }
 
     public function answers()
     {
-        return $this->hasMany(Answer::class)->latest();
+        return $this->hasMany(Answer::class)->orderBy('votes_count', 'DESC');
     }
 
     public function acceptBestAnswer(Answer $answer)
@@ -77,5 +77,23 @@ class Question extends Model
     public function getFavoritesCountAttribute()
     {
         return $this->favorites()->count();
+    }
+
+    public function getExcerptAttribute()
+    {
+        return $this->excerpt(0, 250);
+    }
+
+    public function excerpt($start = 0, $end = null)
+    {
+        if ($end == null) {
+            return strip_tags($this->bodyHtml());
+        }
+        return substr(strip_tags($this->bodyHtml()), $start, $end);
+    }
+
+    private function bodyHtml()
+    {
+        return \Parsedown::instance()->text($this->body);
     }
 }

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class VoteAnswerController extends Controller
 {
-    public function __contruct()
+    public function __construct()
     {
         return $this->middleware('auth');
     }
