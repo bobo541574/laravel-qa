@@ -1,8 +1,7 @@
 <answer :answer="{{ $answer }}" inline-template>
     <div class="media post">
-        @include('shared._vote', [
-        'model' => $answer
-        ])
+        <vote name="answer" :model="{{ $answer }}"></vote>
+
         <div class="media-body">
             <form v-if="editing" @submit.prevent="update">
                 <div class="form-group">
@@ -13,12 +12,9 @@
             </form>
             <div v-else>
                 <div v-html="bodyHtml"></div>
-                {{-- {{ $answer->body_html }} --}}
                 <div class="row">
                     <div class="col-4">
                         @can('update', $answer)
-                        {{-- <a href="{{ route('questions.answers.edit', [$question->id, $answer->id]) }}"
-                            class="btn btn-sm btn-outline-info">Edit</a> --}}
                             <a @click.prevent="edit"
                                 class="btn btn-sm btn-outline-info">Edit</a>
                         @endcan
@@ -30,18 +26,11 @@
                     <div class="col-4">
                     </div>
                     <div class="col-4">
-                        {{-- @include('shared._author', [
-                        'model' => $answer,
-                        'label' => 'answered'
-                        ]) --}}
                         <user-info :model="{{ $answer }}" label="Answered"></user-info>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    {{-- @if (!$loop->last)
-    <hr>
-    @endif --}}
 </answer>
 

@@ -20,10 +20,10 @@
                     <hr>
 
                     <div class="media">
-                        @include('shared._vote', [
+                        {{-- @include('shared._vote', [
                             'model' => $question
-                        ])
-                        
+                        ]) --}}
+                        <vote name="question" :model="{{ $question }}"></vote>
                         <div class="media-body">
                             {{ $question->excerpt() }}
                             <div class="row">
@@ -43,10 +43,11 @@
             </div>
         </div>
     </div>
-    @include('answers._index', [
+    {{-- @include('answers._index', [
         'answers' => $question->answers,
         'answersCount' => $question->answers_count,
-    ])
+    ]) --}}
+    <answers :question="{{ $question }}"></answers>
     @include('answers._create')
 </div>
 @endsection
