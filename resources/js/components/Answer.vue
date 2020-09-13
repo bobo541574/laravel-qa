@@ -36,7 +36,15 @@
 </template>
 
 <script>
+import UserInfo from "./UserInfo";
+import Vote from "./Vote";
+
 export default {
+  components: {
+    UserInfo,
+    Vote,
+  },
+
   props: ["answer"],
   data() {
     return {
